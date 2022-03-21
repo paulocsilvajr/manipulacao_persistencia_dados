@@ -1,5 +1,5 @@
-class Separador():
-    def __init__(self, arquivo: str):
+class Separador:
+    def __init__(self, arquivo: list):
         self._arquivo = arquivo
 
         self._sep_cpf = slice(0, 19)
