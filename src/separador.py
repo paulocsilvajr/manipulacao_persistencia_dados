@@ -1,6 +1,6 @@
 class Separador():
     def __init__(self, arquivo: str):
-        self.arquivo = arquivo
+        self._arquivo = arquivo
 
         self._sep_cpf = slice(0, 19)
         self._sep_private = slice(19, 31)
@@ -13,7 +13,7 @@ class Separador():
 
     def retornar_elementos_em_lista(self) -> list:
         lista = list()
-        for linha in self.arquivo:
+        for linha in self._arquivo:
             lista.append(self._separar_elementos(linha))
 
         return lista
