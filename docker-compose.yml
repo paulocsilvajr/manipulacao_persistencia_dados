@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres-compose:
+    image: postgres:11
+    volumes:
+      - db-postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "15432:5432"
+
+      
+  python-compose:
+    build: .
+    command: python3 src/main.py "base_teste (1).txt"
+    volumes:
+      - python-files:/code/
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    depends_on:
+      - postgres-compose
+
+volumes:
+  db-postgres:
+  python-files:
