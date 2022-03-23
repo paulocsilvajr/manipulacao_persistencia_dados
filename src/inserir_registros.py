@@ -1,8 +1,8 @@
 from db import DB
 
 
-def inserir_registros(dados: list):
-    db = DB('localhost', 'banco_consulting_services', 'postgres', 'postgres', 15432)
+def inserir_registros(dados: list, host: str, porta: int):
+    db = DB(host, 'banco_consulting_services', 'postgres', 'postgres', porta)
     for dado in dados:
         cpf = dado[0]
         private = converte_para_boolean(dado[1])

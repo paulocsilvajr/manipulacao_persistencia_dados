@@ -1,14 +1,12 @@
 from db import DB
 
 
-def criar_db_tabela():
-    # db = DB('manipulacao_persistencia_dados_postgres-compose_1', 'postgres', 'postgres', 'postgres', 5432)
-    db = DB('localhost', 'postgres', 'postgres', 'postgres', 15432)
+def criar_db_tabela(host: str, porta: int):
+    db = DB(host, 'postgres', 'postgres', 'postgres', porta)
     db.executar_sql('CREATE DATABASE banco_consulting_services;')
     del db
 
-    # db = DB('manipulacao_persistencia_dados_postgres-compose_1', 'banco_consulting_services', 'postgres', 'postgres', 5432)
-    db = DB('localhost', 'banco_consulting_services', 'postgres', 'postgres', 15432)
+    db = DB(host, 'banco_consulting_services', 'postgres', 'postgres', porta)
     db.executar_sql('''
     CREATE TABLE IF NOT EXISTS dados(
         cpf varchar(18) NOT NULL,

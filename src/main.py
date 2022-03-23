@@ -1,5 +1,5 @@
 import sys
-# import time
+import time
 
 from separador import Separador
 from validar_doc import ValidarDOC
@@ -25,11 +25,14 @@ def main():
     else:
         print('Itens com CPF/CNPJ inválido', *lista_doc_invalido, sep='\n', end='\n\n')
 
-    criar_db_tabela()
-    dados_parciais = dados[1:]
-    inserir_registros(dados_parciais)
+    print('Esperando alguns segundos para inicializar container e serviço do PostgreSQL', end='\n\n')
+    time.sleep(10)
 
-    # time.sleep(600)
+    print("Criando banco 'banco_consulting_services' e tabela 'dados' para receber os dados de arquivo", end='\n\n')
+    criar_db_tabela('manipulacao_persistencia_dados_postgres-compose_1', 5432)
+
+    print(f'Gravando {len[dados[1:]]} registros em container PostgreSQL', end='\n\n')
+    inserir_registros(dados[1:], 'manipulacao_persistencia_dados_postgres-compose_1', 5432)
 
 
 if __name__ == '__main__':
