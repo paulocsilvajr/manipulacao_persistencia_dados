@@ -4,7 +4,7 @@ from db import DB
 def inserir_registros(dados: list, host: str, porta: int):
     db = DB(host, 'banco_consulting_services', 'postgres', 'postgres', porta)
     for dado in dados:
-        cpf = dado[0]
+        doc = converte_para_doc_formatado(dado[0])
         private = converte_para_boolean(dado[1])
         imcompleto = converte_para_boolean(dado[2])
         data_ultima_compra = converte_para_date(dado[3])
@@ -24,7 +24,7 @@ def inserir_registros(dados: list, host: str, porta: int):
             loja_mais_frequente,
             loja_ultima_compra)
         VALUES(
-            '{cpf}',
+            {doc},
             {private},
             {imcompleto},
             {data_ultima_compra},
@@ -65,3 +65,14 @@ def converte_para_texto(texto: str):
         return texto
     else:
         return f"\'{texto}\'"
+
+def _formata_cpf(cpf: str) -> str:
+        return f'{cpf[0-3]}.{cpf[3-6]}.{cpf[6-9]}-{cpf[9-11]}'
+
+
+def converte_para_doc_formatado(identificador) -> str:
+    cpf_sem_formatacao = len(identificador) == 11
+    if cpf_sem_formatacao:
+        identificador = _formata_cpf(identificador)
+    
+    return f"\'{identificador}\'"
