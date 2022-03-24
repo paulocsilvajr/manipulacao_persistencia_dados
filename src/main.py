@@ -21,7 +21,7 @@ def main():
     valcpf = ValidarDOC(dados[1:])
     lista_doc_invalido = valcpf.validar()
     if not lista_doc_invalido:
-        print('NÃO hã CPF/CNPJ inválidos')
+        print('NÃO hã CPF/CNPJ inválidos', end='\n\n')
     else:
         print('Itens com CPF/CNPJ inválido', *lista_doc_invalido, sep='\n', end='\n\n')
 
@@ -31,11 +31,10 @@ def main():
     print("Criando banco 'banco_consulting_services' e tabela 'dados' para receber os dados de arquivo", end='\n\n')
     criar_db_tabela('manipulacao_persistencia_dados_postgres-compose_1', 5432)
 
-    print(f'Gravando {len[dados[1:]]} registros em container PostgreSQL', end='\n\n')
+    quant_registros = len(dados[1:])
+    print(f'Gravando {quant_registros} registros em container PostgreSQL', end='\n\n')
     inserir_registros(dados[1:], 'manipulacao_persistencia_dados_postgres-compose_1', 5432)
 
 
 if __name__ == '__main__':
     main()
-
-
