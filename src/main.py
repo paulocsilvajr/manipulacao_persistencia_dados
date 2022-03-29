@@ -29,11 +29,11 @@ def main():
     time.sleep(10)
 
     print("Criando banco 'banco_consulting_services' e tabela 'dados' para receber os dados de arquivo", end='\n\n')
-    criar_db_tabela('manipulacao_persistencia_dados_postgres-compose_1', 5432)
+    criar_db_tabela('postgres-compose', 5432)
 
     quant_registros = len(dados[1:])
     print(f'Gravando {quant_registros} registros em container PostgreSQL', end='\n\n')
-    inserir_registros(dados[1:], 'manipulacao_persistencia_dados_postgres-compose_1', 5432)
+    inserir_registros(dados[1:], 'postgres-compose', 5432)
 
 
 if __name__ == '__main__':
